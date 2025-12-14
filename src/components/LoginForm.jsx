@@ -10,7 +10,7 @@ const LoginForm = () => {
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login, isAdmin } = useAuth();
+  const { login, adminLogin, isAdmin } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   
@@ -28,15 +28,17 @@ const LoginForm = () => {
     setLoading(true);
 
     try {
-      const result = await login(formData.username, formData.password);
+      // Admin login uchun alohida funksiya ishlatamiz
+      const result = isAdminLogin 
+        ? await adminLogin(formData.username, formData.password)
+        : await login(formData.username, formData.password);
+      
       setLoading(false);
 
       if (result.success) {
-        // Admin login rejimida va user admin bo'lsa, admin panelga yuborish
-        if (isAdminLogin && isAdmin()) {
+        // Admin login rejimida admin panelga yuborish
+        if (isAdminLogin) {
           navigate('/admin');
-        } else if (isAdminLogin && !isAdmin()) {
-          setError('This account does not have admin privileges. Please use a regular login.');
         } else {
           // Oddiy login - home sahifasiga
           navigate('/');

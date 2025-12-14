@@ -68,6 +68,23 @@ api.interceptors.response.use(
 export const authAPI = {
   register: (data) => api.post('/auth/register/', data),
   login: (data) => api.post('/auth/token/', data),
+  // Admin login uchun alohida funksiya - xatolarni yaxshiroq handle qilish
+  adminLogin: async (data) => {
+    try {
+      return await api.post('/auth/token/', data);
+    } catch (error) {
+      // Admin login uchun alohida error handling
+      if (error.response?.status === 404) {
+        // Agar 404 bo'lsa, /auth/login/ endpoint'ini sinab ko'ramiz
+        try {
+          return await api.post('/auth/login/', data);
+        } catch (loginError) {
+          throw error; // Asl xatoni qaytaramiz
+        }
+      }
+      throw error;
+    }
+  },
   refreshToken: (refresh) => api.post('/auth/token/refresh/', { refresh }),
   getProfile: () => api.get('/auth/profile/'),
 };

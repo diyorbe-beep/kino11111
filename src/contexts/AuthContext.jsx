@@ -81,6 +81,71 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Admin login uchun alohida funksiya - 404 xatosi bo'lsa, /auth/login/ endpoint'ini sinab ko'radi
+  const adminLogin = async (username, password) => {
+    try {
+      // Avval /auth/token/ endpoint'ini sinab ko'ramiz
+      let response;
+      try {
+        response = await authAPI.login({ username, password });
+      } catch (error) {
+        // Agar 404 bo'lsa, /auth/login/ endpoint'ini sinab ko'ramiz
+        if (error.response?.status === 404) {
+          try {
+            response = await authAPI.adminLogin({ username, password });
+          } catch (loginError) {
+            throw error; // Asl xatoni qaytaramiz
+          }
+        } else {
+          throw error;
+        }
+      }
+      
+      // Handle CustomResponse format: { id, message, data: { access, refresh, user } }
+      const responseData = response.data?.data || response.data;
+      const access = responseData?.access || responseData?.access_token;
+      const refresh = responseData?.refresh || responseData?.refresh_token;
+      
+      if (!access || !refresh) {
+        return {
+          success: false,
+          error: response.data?.message || 'Invalid response from server'
+        };
+      }
+      
+      localStorage.setItem('access_token', access);
+      localStorage.setItem('refresh_token', refresh);
+      await loadUser();
+      
+      // Admin ekanligini tekshiramiz - user ma'lumotlarini yuklagandan keyin
+      // loadUser() chaqirilgandan keyin user state yangilanadi
+      const userData = responseData?.user || responseData;
+      const isUserAdmin = userData?.is_staff || userData?.is_superuser || false;
+      
+      if (!isUserAdmin) {
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        setUser(null);
+        return {
+          success: false,
+          error: 'This account does not have admin privileges.'
+        };
+      }
+      
+      return { success: true };
+    } catch (error) {
+      // Handle CustomResponse error format
+      const errorMessage = error.response?.data?.message || 
+                          error.response?.data?.detail ||
+                          (error.response?.data?.errors ? JSON.stringify(error.response.data.errors) : null) ||
+                          'Admin login failed';
+      return {
+        success: false,
+        error: errorMessage,
+      };
+    }
+  };
+
   const register = async (userData) => {
     try {
       const response = await authAPI.register(userData);
@@ -113,6 +178,7 @@ export const AuthProvider = ({ children }) => {
         user,
         loading,
         login,
+        adminLogin,
         register,
         logout,
         isAdmin,

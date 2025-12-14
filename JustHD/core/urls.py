@@ -17,10 +17,19 @@ def home(request):
         "version": "1.0.0",
     })
 
+def test_auth(request):
+    """Test endpoint to verify auth URLs are working"""
+    return JsonResponse({
+        "message": "Auth URLs are working",
+        "endpoint": "/api/v1/auth/token/",
+        "status": "ok"
+    })
+
 urlpatterns = [
     path('', home),
     path('admin/', admin.site.urls),
     path('api/v1/', include('apps.urls.v1')),
+    path('api/v1/test-auth/', test_auth, name='test-auth'),  # Test endpoint
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

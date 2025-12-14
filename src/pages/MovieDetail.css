@@ -1,0 +1,175 @@
+.movie-detail {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.movie-detail-header {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  background-color: #2a2a2a;
+  padding: 2rem;
+  border-radius: 8px;
+}
+
+.movie-detail-poster img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.movie-detail-info h1 {
+  color: #fff;
+  margin: 0 0 1rem 0;
+  font-size: 2.5rem;
+}
+
+.movie-meta {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+
+.movie-year {
+  color: #999;
+  font-size: 1.1rem;
+}
+
+.movie-rating {
+  background-color: #e50914;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.movie-genres {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.genre-tag {
+  background-color: #e50914;
+  color: #fff;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.movie-actors {
+  color: #ccc;
+  margin-bottom: 1.5rem;
+}
+
+.movie-description h3 {
+  color: #fff;
+  margin: 0 0 0.5rem 0;
+}
+
+.movie-description p {
+  color: #ccc;
+  line-height: 1.6;
+}
+
+.movie-reviews {
+  background-color: #2a2a2a;
+  padding: 2rem;
+  border-radius: 8px;
+}
+
+.movie-reviews h2 {
+  color: #fff;
+  margin: 0 0 1.5rem 0;
+}
+
+.review-form {
+  background-color: #1a1a1a;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.review-form h3 {
+  color: #fff;
+  margin: 0 0 1rem 0;
+}
+
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.review-item {
+  background-color: #1a1a1a;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.review-header strong {
+  color: #fff;
+}
+
+.review-rating {
+  color: #e50914;
+  font-weight: bold;
+}
+
+.review-text {
+  color: #ccc;
+  margin: 0.5rem 0;
+  line-height: 1.6;
+}
+
+.review-date {
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.no-reviews {
+  color: #999;
+  text-align: center;
+  padding: 2rem;
+}
+
+.loading,
+.error {
+  text-align: center;
+  color: #ccc;
+  font-size: 1.2rem;
+  padding: 3rem;
+}
+
+@media (max-width: 768px) {
+  .movie-detail-header {
+    grid-template-columns: 1fr;
+  }
+
+  .movie-detail-poster {
+    max-width: 200px;
+    margin: 0 auto;
+  }
+
+  .movie-detail-info h1 {
+    font-size: 1.8rem;
+  }
+}
+
+
+
+
+
+
+
+

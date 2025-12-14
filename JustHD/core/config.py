@@ -54,21 +54,26 @@ CORS_ORIGINS_STR = decouple_config(
     cast=str
 )
 
-# Agar CORS_ALLOWED_ORIGINS bo'sh bo'lsa, development uchun barcha localhost portlarini ruxsat berish
+# Default frontend URL'lar (development va production uchun)
+DEFAULT_FRONTEND_URLS = [
+    'http://localhost:5173',
+    'http://localhost:3000',
+    'http://localhost:5174',
+    'http://localhost:8080',
+    'http://127.0.0.1:5173',
+    'http://127.0.0.1:3000',
+    'http://127.0.0.1:5174',
+    'http://127.0.0.1:8080',
+]
+
+# Agar CORS_ALLOWED_ORIGINS bo'sh bo'lsa, default URL'larni ishlatish
 if not CORS_ORIGINS_STR or CORS_ORIGINS_STR.strip() == '':
-    FRONTEND_URLS = [
-        'http://localhost:5173',
-        'http://localhost:3000',
-        'http://localhost:5174',
-        'http://localhost:8080',
-        'http://127.0.0.1:5173',
-        'http://127.0.0.1:3000',
-        'http://127.0.0.1:5174',
-        'http://127.0.0.1:8080',
-    ]
+    FRONTEND_URLS = DEFAULT_FRONTEND_URLS.copy()
 else:
     # Comma-separated list ni array ga aylantirish
-    FRONTEND_URLS = [url.strip() for url in CORS_ORIGINS_STR.split(',') if url.strip()]
+    custom_urls = [url.strip() for url in CORS_ORIGINS_STR.split(',') if url.strip()]
+    # Default URL'lar va custom URL'larni birlashtirish (duplikatlarni olib tashlash)
+    FRONTEND_URLS = list(set(DEFAULT_FRONTEND_URLS + custom_urls))
 
 # Telegram Bot Settings
 TELEGRAM_BOT_TOKEN = decouple_config('TELEGRAM_BOT_TOKEN', default=None)

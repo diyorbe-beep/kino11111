@@ -244,17 +244,28 @@ if DEBUG:
     # Belgilangan originlar ham qo'shiladi
     CORS_ALLOWED_ORIGINS = frontend_urls
 else:
-    # Production rejimida faqat belgilangan production originlar
-    # Localhost ni o'chirish - security uchun
-    if not frontend_urls:
-        # Agar frontend_urls bo'sh bo'lsa, xato qaytarish
+    # Production rejimida belgilangan production originlar
+    # Localhost URL'larini olib tashlash - security uchun
+    production_urls = [
+        url for url in frontend_urls 
+        if not url.startswith('http://localhost') 
+        and not url.startswith('http://127.0.0.1')
+    ]
+    
+    if not production_urls:
+        # Agar production URL'lar bo'sh bo'lsa, xato qaytarish
         import warnings
         warnings.warn(
-            "CORS_ALLOWED_ORIGINS is empty in production! "
-            "Please set CORS_ALLOWED_ORIGINS in environment variables.",
+            "CORS_ALLOWED_ORIGINS is empty or contains only localhost URLs in production! "
+            "Please set CORS_ALLOWED_ORIGINS in environment variables with production URLs.",
             UserWarning
         )
-    CORS_ALLOWED_ORIGINS = frontend_urls
+        # Xavfsizlik uchun, agar production URL'lar bo'sh bo'lsa, default URL'larni ishlatish
+        # Lekin bu faqat development uchun, production'da xato qaytarish kerak
+        CORS_ALLOWED_ORIGINS = frontend_urls if frontend_urls else []
+    else:
+        CORS_ALLOWED_ORIGINS = production_urls
+    
     CORS_ALLOWED_ORIGIN_REGEXES = []
 
 CORS_ALLOW_CREDENTIALS = True

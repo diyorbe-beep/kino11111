@@ -3,15 +3,10 @@
  */
 import axios from 'axios';
 
-// Use Vite proxy in development, direct URL in production
-const isDevelopment = import.meta.env.DEV;
-// Development'da Vite proxy ishlatish (CORS muammolarini hal qiladi)
-const API_URL = isDevelopment 
-  ? '/api/v1'  // Vite proxy orqali
-  : (import.meta.env.VITE_API_URL || 'http://139.59.137.138/api/v1');
-const MEDIA_URL = isDevelopment
-  ? '/media'  // Vite proxy orqali
-  : (import.meta.env.VITE_MEDIA_URL || 'http://139.59.137.138/media');
+// Backend server URL - to'g'ridan-to'g'ri backend'ga so'rov yuborish
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://139.59.137.138';
+const API_URL = `${BACKEND_URL}/api/v1`;
+const MEDIA_URL = `${BACKEND_URL}/media`;
 
 // Create axios instance
 const api = axios.create({
@@ -48,7 +43,7 @@ api.interceptors.response.use(
         const refreshToken = localStorage.getItem('refresh_token');
         if (refreshToken) {
           // Handle CustomResponse format for token refresh
-          const response = await axios.post(`${API_URL}/auth/token/refresh/`, {
+          const response = await axios.post(`${BACKEND_URL}/api/v1/auth/token/refresh/`, {
             refresh: refreshToken,
           });
           const responseData = response.data?.data || response.data;
@@ -161,7 +156,7 @@ export const actorsAPI = {
   list: (params) => api.get('/movies/actors/', { params }),
 };
 
-export { API_URL, MEDIA_URL };
+export { API_URL, MEDIA_URL, BACKEND_URL };
 export default api;
 
 

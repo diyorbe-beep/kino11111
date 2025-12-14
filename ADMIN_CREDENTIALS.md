@@ -190,3 +190,4 @@ for user in users:
 
 **Eslatma:** Agar hali superuser yaratmagan bo'lsangiz, yuqoridagi usullardan birini ishlatib yarating!
 
+

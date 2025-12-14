@@ -250,3 +250,4 @@ class IsAdminUser(permissions.BasePermission):
 
 **Eslatma:** Production'da `is_staff=True` bo'lgan foydalanuvchilarni ehtiyotkorlik bilan boshqaring!
 
+

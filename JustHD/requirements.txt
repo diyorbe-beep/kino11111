@@ -1,0 +1,56 @@
+# Django
+Django==4.2.3
+django-environ==0.11.2
+python-decouple==3.8
+dj-database-url==2.1.0
+django-modeltranslation==0.19.2
+
+# REST Framework
+djangorestframework==3.14.0
+drf-spectacular==0.26.5
+django-filter==23.5
+
+# Authentication
+djangorestframework-simplejwt==5.3.1
+
+# Database
+psycopg2-binary==2.9.9
+
+# CORS
+django-cors-headers==4.3.1
+
+# Image processing
+Pillow==10.2.0
+
+# Telegram
+pyTelegramBotAPI==4.14.0
+
+# Debug Toolbar
+django-debug-toolbar==4.2.0
+
+# Health-check
+django-health-check==3.17.0
+
+# Gunicorn
+gunicorn==21.2.0
+
+# Admin
+django-jazzmin==2.6.0  # Chiroyli admin panel uchun
+django-import-export==3.3.4  # Import/export functionality
+
+# Testing
+pytest==7.4.4
+pytest-django==4.8.0
+pytest-cov==4.1.0
+factory-boy==3.3.0
+
+# Code quality
+black==24.1.1
+flake8==7.0.0
+isort==5.13.2
+pre-commit==3.6.0
+
+# Development tools
+django-extensions==3.2.3
+ipython==8.22.0
+ipdb==0.13.13

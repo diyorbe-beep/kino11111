@@ -1,0 +1,1 @@
+﻿#!/bin/bash# Database backup scriptBACKUP_DIR="backups"DATE=$(date +%Y%m%d_%H%M%S)BACKUP_FILE="$BACKUP_DIR/justhd_backup_$DATE.sql"mkdir -p $BACKUP_DIRecho "рџ“¦ Creating database backup..."pg_dump -h localhost -U postgres justhd_db > $BACKUP_FILEecho "вњ… Backup created: $BACKUP_FILE"

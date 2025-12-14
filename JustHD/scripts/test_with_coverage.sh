@@ -1,0 +1,1 @@
+﻿#!/bin/bashecho "рџ§Є Running tests with coverage..."coverage erasecoverage run --source='.' manage.py test apps.users.tests apps.movies.testscoverage reportcoverage htmlecho "рџ“Љ Coverage report generated in htmlcov/"

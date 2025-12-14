@@ -5,12 +5,12 @@ import axios from 'axios';
 
 // Use Vite proxy in development, direct URL in production
 const isDevelopment = import.meta.env.DEV;
-// Development'da ham to'g'ridan-to'g'ri backend URL ga so'rov yuborish
+// Development'da Vite proxy ishlatish (CORS muammolarini hal qiladi)
 const API_URL = isDevelopment 
-  ? 'http://139.59.137.138/api/v1'  // To'g'ridan-to'g'ri backend URL
+  ? '/api/v1'  // Vite proxy orqali
   : (import.meta.env.VITE_API_URL || 'http://139.59.137.138/api/v1');
 const MEDIA_URL = isDevelopment
-  ? 'http://139.59.137.138/media'  // To'g'ridan-to'g'ri backend URL
+  ? '/media'  // Vite proxy orqali
   : (import.meta.env.VITE_MEDIA_URL || 'http://139.59.137.138/media');
 
 // Create axios instance

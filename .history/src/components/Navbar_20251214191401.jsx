@@ -18,7 +18,7 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="navbar-container">
         <Link to="/" className="navbar-logo">
-          🎬 JustHD
+          🎬 
         </Link>
         <div className="navbar-menu">
           <Link to="/" className="navbar-link">
